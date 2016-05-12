@@ -1,0 +1,6 @@
+[submodule "network_testing-client"]
+	path = network_testing-client
+	url = https://github.com/quentinl-c/network_testing-client.git
+[submodule "network_testing-server"]
+	path = network_testing-server
+	url = https://github.com/quentinl-c/network_testing-server.git
