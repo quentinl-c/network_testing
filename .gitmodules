@@ -5,6 +5,3 @@
 	path = network_testing-server
 	url = https://github.com/quentinl-c/network_testing-server.git
 
-[submodule "network_testing-docker"]
-	path = network_testing-docker
-	url = https://github.com/quentinl-c/network_testing-docker.git
