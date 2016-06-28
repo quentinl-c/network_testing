@@ -1,0 +1,230 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Journal Article
+% LaTeX Template
+% Version 1.4 (15/5/16)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% Frits Wenneker (http://www.howtotex.com) with extensive modifications by
+% Vel (vel@LaTeXTemplates.com)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Author (Content) : Quentin LAPORTE-CHABASSE
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[twoside,twocolumn]{article}
+
+\usepackage{blindtext} % Package to generate dummy text throughout this template
+
+\usepackage[sc]{mathpazo} % Use the Palatino font
+\usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
+\linespread{1.05} % Line spacing - Palatino needs more space between lines
+\usepackage{microtype} % Slightly tweak font spacing for aesthetics
+
+\usepackage[english]{babel} % Language hyphenation and typographical rules
+
+\usepackage[hmarginratio=1:1,top=32mm,columnsep=20pt]{geometry} % Document margins
+\usepackage[hang, small,labelfont=bf,up,textfont=it,up]{caption} % Custom captions under/above floats in tables or figures
+\usepackage{booktabs} % Horizontal rules in tables
+
+\usepackage{lettrine} % The lettrine is the first enlarged letter at the beginning of the text
+
+\usepackage{enumitem} % Customized lists
+\setlist[itemize]{noitemsep} % Make itemize lists more compact
+
+\usepackage{abstract} % Allows abstract customization
+\renewcommand{\abstractnamefont}{\normalfont\bfseries} % Set the "Abstract" text to bold
+\renewcommand{\abstracttextfont}{\normalfont\small\itshape} % Set the abstract itself to small italic text
+
+\usepackage{titlesec} % Allows customization of titles
+\renewcommand\thesection{\Roman{section}} % Roman numerals for the sections
+\renewcommand\thesubsection{\roman{subsection}} % roman numerals for subsections
+\titleformat{\section}[block]{\large\scshape\centering}{\thesection.}{1em}{} % Change the look of the section titles
+\titleformat{\subsection}[block]{\large}{\thesubsection.}{1em}{} % Change the look of the section titles
+
+\usepackage{fancyhdr} % Headers and footers
+\pagestyle{fancy} % All pages have headers and footers
+\fancyhead{} % Blank out the default header
+\fancyfoot{} % Blank out the default footer
+% \fancyhead{} % Custom header text
+\fancyfoot[RO,LE]{\thepage} % Custom footer text
+
+\usepackage{titling} % Customizing the title section
+
+\usepackage{hyperref} % For hyperlinks in the PDF
+
+\usepackage{graphicx}
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\setlength{\droptitle}{-4\baselineskip} % Move the title up
+
+\pretitle{\begin{center}\Huge\bfseries} % Article title formatting
+\posttitle{\end{center}} % Article title closing formatting
+\title{Tool for peer-to-peer topologies testing in collaborative applications} % Article title
+\author{
+\textsc{Quentin LAPORTE-CHABASSE}
+\normalsize Loria - Team COAST \\ % Your institution
+\normalsize \href{mailto:quentin.laporte-chabasse@telecomnancy.net}{quentin.laporte-chabasse@telecomnancy.net} % Your email address
+}
+\date{\today}
+\renewcommand{\maketitlehookd}{%
+\begin{abstract}
+\noindent In the context of OpenPaaS::NG project, COAST Team is designing a peer-to-peer infrastructure for real-time collaborative editing.
+Thus clients are directly inter-connected each other and can communicate without passing through a centralized server. This approach can partially
+solve the scalability issue, indeed the server is not anymore the bottleneck of the application. However it is necessary to test the application with
+a large amount of clients, in order to reach the limits of the peer-to-peer toplogy. The tool provided, simulates a large scale collaborative session and
+measures the effects of topology on network delays and clients ressources. This document provides informations about our motivations, technical and architectural
+choices and experimentation itself.
+\end{abstract}
+}
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+% Print the title
+\maketitle
+
+%----------------------------------------------------------------------------------------
+%	ARTICLE CONTENTS
+%----------------------------------------------------------------------------------------
+
+\section{Motivations}
+
+It is necessary to be able to test the performances and the effects of peer-to-peer topology on user experience.
+We must ensure that the topology used is reliable and is enough sacalable according to the specifications of the collaborative application.
+In addition, we must collect enough data in order to perform a comprehensive state of the art.
+
+The tool provided is inspired by an experimentation designed to compare the performance provided by our collaborative text editor\footnote{MUTE : Multi User Text Editor} and Google Doc.
+The first experimentation was limited by the number of collaborators deployed and could only be run on few computers. Therefore, we decided to focus our work on the capacity to deploy a
+large amount of clients.
+
+The second main topic that we addressed is the reproducibility of the tests. It is crucial to be able to relaunch the same tests and to ensure that the measurement collected are correct
+and are not due to side effects.
+
+To summarize, all requirements are listed below.
+
+Requierements :
+\begin{itemize}
+  \item The experimentation should be reproductible
+  \item The experimentation should deploy a large amount of collaborators
+  \item The experimentation should allow to test a large variety of collaborative applications
+  \item The experimentation should measure the network delay
+  \item The experimentation should measure the ressources taken by each client (ie collaborator)
+\end{itemize}
+
+%------------------------------------------------
+
+\section{Architecture and technical choices}
+
+\subsection{Environment}
+As mentioned above, the tool must deploy a large amount of collaborators, we need consequently an high computing capacity allowing to support all the virtual collaborators.
+At the first sight, flexible solutions provided by cloud servercices (like AWS, Google AppEngin, etc.) should be the easiest way to delpoy this experience.
+But in order to be close to real conditions, we should be able to simulate workstation and network capacities. Cloud services are therefore limited and cannot easily offer such features.
+In the context of computer science research, a large scale and versatile testbed is provided (in Loria).
+This infrastructure named Grid5000 allow us to deploy easily an experimentation and parametrize the running conditions.
+Technical choices are made in order to be compliant with this tool.
+
+\subsection{Global architecture}
+
+The Figure~\ref{fig:archi} below shows the global architecture of the testing tool. The architecture includes :
+
+\begin{itemize}
+  \item A server which is in charge of managing the experimentation
+  \item A RabbitMQ server which supports the communication between the server and clients
+  \item Clients which simulate collaborators
+  \item Collaborative application which is currently tested\footnote{In our case, the targeted application is MUTE}
+\end{itemize}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=7cm]{figures/architecture.png}
+  \caption{Architecture of the application}
+  \label{fig:archi}
+\end{figure}
+
+\noindent The following paragraphs describe the behavior of each component of the architecture, the RabbitMQ server is just a communication medium and is therefore ignored.
+
+\subsubsection{The server}
+
+The server manages the experimentation, it keeps in memory all the caracteristics that will be played\footnote{In our case : \it{number of collaborators, typing speed, duration ...}}. It is in charge of synchronize all clients and collects clients
+measurements at the end of the experimentation. The server communicates with clients by RabbitMQ server. It also provides an HTTP API which allows clients to communicate with it.
+
+\noindent To summarize, the server should :
+\begin{itemize}
+  \item accept subscription queries from clients
+  \item manage lis of clients
+  \item communicate with clients
+  \item accept measurements sent by clients
+\end{itemize}
+
+
+\subsubsection{The Clients}
+
+\subsubsection{Collaborative application}
+
+
+\subsection{Technical choices}
+
+
+% \begin{table}
+% \caption{Example table}
+% \centering
+% \begin{tabular}{llr}
+% \toprule
+% \multicolumn{2}{c}{Name} \\
+% \cmidrule(r){1-2}
+% First name & Last Name & Grade \\
+% \midrule
+% John & Doe & $7.5$ \\
+% Richard & Miles & $2$ \\
+% \bottomrule
+% \end{tabular}
+% \end{table}
+
+
+% \begin{equation}
+% \label{eq:emc}
+% e = mc^2
+% \end{equation}
+
+
+%------------------------------------------------
+
+\section{Exeperimentation}
+
+\subsection{Scenario}
+
+% A statement requiring citation \cite{Figueredo:2009dg}.
+
+
+
+%----------------------------------------------------------------------------------------
+%	REFERENCE LIST
+%----------------------------------------------------------------------------------------
+
+\begin{thebibliography}{99} % Bibliography - this is intentionally simple in this template
+
+\bibitem[Figueredo and Wolf, 2009]{Figueredo:2009dg}
+Figueredo, A.~J. and Wolf, P. S.~A. (2009).
+\newblock Assortative pairing and life history strategy - a cross-cultural
+  study.
+\newblock {\em Human Nature}, 20:317--330.
+
+\end{thebibliography}
+
+%----------------------------------------------------------------------------------------
+
+\end{document}
