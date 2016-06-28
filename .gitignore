@@ -85,3 +85,6 @@ target/
 *.mtc1
 *.out
 *.synctex.gz
+
+#Other
+*.DS_Store
