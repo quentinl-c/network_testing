@@ -102,15 +102,15 @@ choices and experimentation itself.
 %----------------------------------------------------------------------------------------
 
 \section{Motivations}
-
+\paragraph{}
 It is necessary to be able to test the performances and the effects of peer-to-peer topology on user experience.
 We must ensure that the topology used is reliable and is enough sacalable according to the specifications of the collaborative application.
 In addition, we must collect enough data in order to perform a comprehensive state of the art.
-
-The tool provided is inspired by an experimentation designed to compare the performance provided by our collaborative text editor\footnote{MUTE : Multi User Text Editor} and Google Doc.
+\paragraph{}
+The tool provided is inspired by an experimentation designed to compare the performance provided by our collaborative text editor\footnote{MUTE for Multi User Text Editor : \url{http://mute-collabedition.rhcloud.com/} } and Google Doc.
 The first experimentation was limited by the number of collaborators deployed and could only be run on few computers. Therefore, we decided to focus our work on the capacity to deploy a
 large amount of clients.
-
+\paragraph{}
 The second main topic that we addressed is the reproducibility of the tests. It is crucial to be able to relaunch the same tests and to ensure that the measurement collected are correct
 and are not due to side effects.
 
@@ -130,15 +130,16 @@ Requierements :
 \section{Architecture and technical choices}
 
 \subsection{Environment}
+\paragraph{}
 As mentioned above, the tool must deploy a large amount of collaborators, we need consequently an high computing capacity allowing to support all the virtual collaborators.
 At the first sight, flexible solutions provided by cloud servercices (like AWS, Google AppEngin, etc.) should be the easiest way to delpoy this experience.
 But in order to be close to real conditions, we should be able to simulate workstation and network capacities. Cloud services are therefore limited and cannot easily offer such features.
 In the context of computer science research, a large scale and versatile testbed is provided (in Loria).
-This infrastructure named Grid5000 allow us to deploy easily an experimentation and parametrize the running conditions.
+This infrastructure named Grid5000 allows us to deploy easily an experimentation and parametrize the running conditions.
 Technical choices are made in order to be compliant with this tool.
 
 \subsection{Global architecture}
-
+\paragraph{}
 The Figure~\ref{fig:archi} below shows the global architecture of the testing tool. The architecture includes :
 
 \begin{itemize}
@@ -150,7 +151,7 @@ The Figure~\ref{fig:archi} below shows the global architecture of the testing to
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[width=7cm]{figures/architecture.png}
+  \includegraphics[width=6cm]{figures/architecture.png}
   \caption{Architecture of the application}
   \label{fig:archi}
 \end{figure}
@@ -158,8 +159,9 @@ The Figure~\ref{fig:archi} below shows the global architecture of the testing to
 \noindent The following paragraphs describe the behavior of each component of the architecture, the RabbitMQ server is just a communication medium and is therefore ignored.
 
 \subsubsection{The server}
-
-The server manages the experimentation, it keeps in memory all the caracteristics that will be played\footnote{In our case : \it{number of collaborators, typing speed, duration ...}}. It is in charge of synchronize all clients and collects clients
+\paragraph{}
+The server manages the experimentation, it keeps in memory all the caracteristics that will be played\footnote{In our case : \it{number of collaborators, typing speed, duration ...}}.
+It is in charge of synchronize all clients and collects clients
 measurements at the end of the experimentation. The server communicates with clients by RabbitMQ server. It also provides an HTTP API which allows clients to communicate with it.
 
 \noindent To summarize, the server should :
@@ -170,12 +172,41 @@ measurements at the end of the experimentation. The server communicates with cli
   \item accept measurements sent by clients
 \end{itemize}
 
+The behavior of server is described below by Figure~\ref{fig:serv-behavior}
 
-\subsubsection{The Clients}
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=6cm]{figures/flowchart-server.png}
+  \caption{Server behavior}
+  \label{fig:serv-behavior}
+\end{figure}
 
-\subsubsection{Collaborative application}
+\subsubsection{The clients}
+\paragraph{}
+The clients simulate collaborators, in the context of collaborative edition they can play either the role of writer or reader.
+The roles are given by the server during the subscription step. Clients behave like real collaborators, they use chrome browser and
+interact with application like a real user. A reader intercepts all modifications applied on shared document and save them in a log object
+with associated timestamp. At a regular time intervals, the writer write a unique word given by the server. Each writer has a unique word among all
+the others writers and keeps it during the whole session. For each word written, writer also saves the word written and the timestamp associated in a
+log object. When the time is up, collaborators send log objects to the the sever. In this way, log ojects ban be combined and we can easily know the delay
+between message sending and the reception.
+\paragraph{}
+In spite of communications with the server, clients communicate directly each other by peer-to-peer connections. All the messages go through a
+peer-to-peer network as shown in Figure~\ref{fig:topo}. The topic of our research focuses on the peer-to-peer topology. This topology is described by
+the collaborative application. Thus, it is important to emphasise that the testing tool doesn't affect the application functionning. The topology below
+is the easiest to implement but the one of least scalable. It may change in a close future according to the progression of our work.
 
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=3.5cm]{figures/topo.png}
+  \caption{Topology "fully-connected"}
+  \label{fig:topo}
+\end{figure}
 
+\subsubsection{The collaborative application}
+\paragraph{}
+The collaborative application runs independently from testing tool and it may even hosted anywhere\footnote{It must be accessible from internet}.
+We are currently working on our prototype MUTE wich is the targeted application of the test.
 \subsection{Technical choices}
 
 

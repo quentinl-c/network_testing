@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1467146267 "report.tex" "report.pdf" "report" 1467146268
+["pdflatex"] 1467205358 "report.tex" "report.pdf" "report" 1467205359
   "/usr/local/texlive/2015/texmf-dist/fonts/map/fontname/texfonts.map" 1272929888 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
   "/usr/local/texlive/2015/texmf-dist/fonts/tfm/adobe/palatino/pplb9e.tfm" 1136768653 5972 8da11a082fb7b0bb20bdef74c1f36ef8 ""
   "/usr/local/texlive/2015/texmf-dist/fonts/tfm/adobe/palatino/pplr9e.tfm" 1136768653 6952 02ad5d201b346d62c53c35f081142949 ""
@@ -8,6 +8,7 @@
   "/usr/local/texlive/2015/texmf-dist/fonts/tfm/adobe/palatino/pplri9e.tfm" 1136768653 4636 04bb79b19bf5315ced00732a1dac5509 ""
   "/usr/local/texlive/2015/texmf-dist/fonts/tfm/adobe/zapfding/pzdr.tfm" 1136768653 1528 f853c4d1b4e0550255e02831fdc8496f ""
   "/usr/local/texlive/2015/texmf-dist/fonts/tfm/jknappen/ec/ecrm1000.tfm" 1136768653 3584 adb004a0c8e7c46ee66cad73671f37b4 ""
+  "/usr/local/texlive/2015/texmf-dist/fonts/tfm/jknappen/ec/ectt0800.tfm" 1136768653 1536 0b0b8ca286de6a006b681926403f35cd ""
   "/usr/local/texlive/2015/texmf-dist/fonts/tfm/public/mathpazo/zplmr7m.tfm" 1136768653 2080 40a71f65088bdd047622ce295520749e ""
   "/usr/local/texlive/2015/texmf-dist/fonts/tfm/public/mathpazo/zplmr7t.tfm" 1136768653 1828 bb8add3bd19426549f9267c88b0cb8bd ""
   "/usr/local/texlive/2015/texmf-dist/fonts/tfm/public/mathpazo/zplmr7v.tfm" 1136768653 1012 955c4ca523d7827d33db91a33412b048 ""
@@ -28,6 +29,7 @@
   "/usr/local/texlive/2015/texmf-dist/tex/latex/base/article.cls" 1428932888 20708 96f8bca6e380179cada1d49716376167 ""
   "/usr/local/texlive/2015/texmf-dist/tex/latex/base/fontenc.sty" 1428932888 4572 f29f75cfae3acaf4667f1979db655af9 ""
   "/usr/local/texlive/2015/texmf-dist/tex/latex/base/size10.clo" 1428932888 9179 632e23fed01c842f2eaef1dd9953a446 ""
+  "/usr/local/texlive/2015/texmf-dist/tex/latex/base/t1cmtt.fd" 1428932888 2230 8532e244c49c4b3887eb2868e2f1cda3 ""
   "/usr/local/texlive/2015/texmf-dist/tex/latex/base/t1enc.def" 1428932888 9327 bf6addf718ff386725227c5b52941e7e ""
   "/usr/local/texlive/2015/texmf-dist/tex/latex/blindtext/blindtext.sty" 1325892463 47295 de48b7f8ebf4b54709a2f6b2c7106dd5 ""
   "/usr/local/texlive/2015/texmf-dist/tex/latex/booktabs/booktabs.sty" 1211777752 6375 989ecfb545a13610facc71ae7e40ced1 ""
@@ -73,11 +75,13 @@
   "/usr/local/texlive/2015/texmf-var/web2c/xetex/xelatex.fmt" 1453049422 3445936 97c89f563318593d9fab32afaf859989 ""
   "/usr/local/texlive/2015/texmf.cnf" 1432479636 577 0d611272082f3cdb8e80e09a3c69cf07 ""
   "figures/architecture.png" 1467129932 49797 2c6b150915080d1778b98325507671a8 ""
-  "report.aux" 1467146268 2208 c9ce85a498156b053e942aee233164c3 ""
-  "report.out" 1467146268 732 907a415d3c57525109565523651fc60c ""
-  "report.tex" 1467146264 9837 09879f0c7d507fe4d97e17cab6773e61 ""
+  "figures/flowchart-server.png" 1467187066 32157 f4a5d96cbfcb0ab732f298e8b516c547 ""
+  "figures/topo.png" 1467193779 12433 4219547d52b83ad1623f040aabea3582 ""
+  "report.aux" 1467205358 3096 c6fa5c90cd03860ee815d69de63f194f ""
+  "report.out" 1467205359 672 9634915e47274bbbe6c96e8c7f648f16 ""
+  "report.tex" 1467205354 12087 6e5f6e485ee44a6695c2b7fb9a078e51 ""
   (generated)
   "report.out"
   "report.aux"
-  "report.log"
   "report.pdf"
+  "report.log"
