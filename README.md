@@ -51,3 +51,46 @@ readers = 1
 typing_speed = 5 # unit word/sec
 duration = 240 # time unit : seconde
 ```
+
+## How to launch the experimentation on grid5k
+
+### Step 1 : Physical nodes reservation
+Before this step, you must be connected on a site (for example Nancy)
+In order to reserve physical nodes on g5K we use oarsub tool :
+```
+site> oarsub -t deploy -I -l slash_22=1+{"cluster='CLUSTER'"}/nodes=NODES_NBR,walltime=RESERVATION_DURATION
+```
+
+### Step 2 : OS deployment
+You must install an operating system before to work on nodes
+```
+site> kadeploy3 -f $OAR_NODE_FILE -e jessie-x64-nfs -k
+```
+
+### Step 3 : IP range reservation
+You must keep the IP range given by the command. It will be useful for a next step
+```
+site> g5k-subnets -sp
+```
+
+### Step 4 : Distem tool deployment
+We use Distem for virtual node deployment, so we need to install Distem on all physical nodes.
+The following command will do the job and give you the coordinator name(the physical node which lead the deployment of virtual nodes)
+```
+site> distem-bootstrap
+```
+
+### Step 5 : Connection to the coordinator
+You will control the deployment from the coordinator, so you need to connect on this node.
+```
+site> ssh root@coordinator-name
+```
+
+### Step 6 : Launch the script
+You have to use the deployment.rb script and give the IP range as argument
+```
+ruby deployment.rb ip-range
+```
+
+### Step 7 : Retrieve results
+All results are saved in the tmp folder (by default)
