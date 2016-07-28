@@ -132,7 +132,7 @@ Requierements :
 \subsection{Environment}
 \paragraph{}
 As mentioned above, the tool must deploy a large amount of collaborators, we need consequently an high computing capacity allowing to support all the virtual collaborators.
-At the first sight, flexible solutions provided by cloud servercices (like AWS, Google AppEngin, etc.) should be the easiest way to delpoy this experience.
+At the first sight, flexible solutions provided by cloud servercices \footnote{Like AWS, Google AppEngin, etc.} should be the easiest way to delpoy this experience.
 But in order to be close to real conditions, we should be able to simulate workstation and network capacities. Cloud services are therefore limited and cannot easily offer such features.
 In the context of computer science research, a large scale and versatile testbed is provided (in Loria).
 This infrastructure named Grid5000 allows us to deploy easily an experimentation and parametrize the running conditions.
@@ -206,10 +206,14 @@ is the easiest to implement but the one of least scalable. It may change in a cl
 \subsubsection{The collaborative application}
 \paragraph{}
 The collaborative application runs independently from testing tool and it may even hosted anywhere\footnote{It must be accessible from internet}.
-We are currently working on our prototype MUTE wich is the targeted application of the test.
+We are currently working on our prototype MUTE wich is the targeted application of the test.  You may change this one, but in this case, you should
+change the behavior of collaborators.
 \subsection{Technical choices}
+\paragraph{}
+Apart from the collaborative text editor, all the components of testing tool are deployed over Grid5000. This technical infrastructure provides a wide variety
+of softwares allowing us to simulate environment and made the tests reproductible.
 
-
+We use Distem\footnote{Distem : \url{http://distem.gforge.inria.fr/}}, a ruby library provided by Grid5000.
 % \begin{table}
 % \caption{Example table}
 % \centering
