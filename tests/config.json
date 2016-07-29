@@ -1,0 +1,8 @@
+  {
+    "exp_name" : "titi",
+    "writers" : 3,
+    "readers": 1,
+    "typing_speed" : 2,
+    "duration" : 20,
+    "target": "http://coast-team.github.io/netflux-demo/grid5000"
+}
