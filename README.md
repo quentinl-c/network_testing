@@ -1,5 +1,5 @@
 # network_testing
-> Real time measurement of collaborative editors based on p2p networks. In order to test the effects of network topologies on user experience and clients resources
+> This application tests the effects of network topologies on user experience and clients resources in the context of p2p collaborative editing 
 
 # Introduction
 The project is organized and developed in order to be deployed over grid5000 (for further information : https://www.grid5000.fr/mediawiki/index.php/Grid5000:Home)
@@ -81,7 +81,7 @@ site> distem-bootstrap
 ```
 
 ### Step 5 : Connection to the coordinator
-You will control the deployment from the coordinator, so you need to connect on this node.
+You will control the deployment from the coordinator, so you need to be connected on this node.
 ```
 site> ssh root@coordinator-name
 ```
@@ -94,3 +94,40 @@ ruby deployment.rb ip-range
 
 ### Step 7 : Retrieve results
 All results are saved in the tmp folder (by default)
+You should use scp for retrieving them
+
+Two kinds of results:
+
+* content (ending by 'content.txt') : keeps the text resulting from the collaboration : it could be useful if you want to check the convergence of algorithms involved
+* results (ending by 'results.txt') : keeps the traces of messages sent and received by the peer
+
+## Computes results
+Exploitation scripts allow you to extract delays and loss rates for each writer in collaboration.
+
+First, you have to save the results.txt files into a specific folder and run it :
+
+```
+python computation.py /path/to/specific/folder/ /path/to/output/folder/
+```
+
+This script will give you two kinds of CSV files :
+* results_delays.csv : this kind of file stores all delays measured for each writer (one file for each writer)
+* results_loss-rate.csv : in the same veine, this kind of file stores all loss rates measured for each writer (one file for each writer)
+
+You can plot delays and loss rates for each writer by using display_measurements.py script.
+
+(Both kinds of csv files can be stored in the same folder)
+
+```
+python display_measurements.py /folder/containing/csv/files/
+```
+
+### Some examples of plotted graphs
+
+Delays :
+
+![Delays](./assets/plot1.png "Delays")
+
+Loss rates :
+
+![Loss_rates](./assets/plot2.png "Loss rates")
