@@ -101,7 +101,7 @@ Two kinds of results:
 * content (ending by 'content.txt') : keeps the text resulting from the collaboration : it could be useful if you want to check the convergence of algorithms involved
 * results (ending by 'results.txt') : keeps the traces of messages sent and received by the peer
 
-## Computes results
+## Compute results
 Exploitation scripts allow you to extract delays and loss rates for each writer in collaboration.
 
 First, you have to save the results.txt files into a specific folder and run it :
