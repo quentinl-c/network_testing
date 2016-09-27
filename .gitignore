@@ -88,3 +88,4 @@ target/
 
 #Other
 *.DS_Store
+tests/
